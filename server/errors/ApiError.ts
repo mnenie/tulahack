@@ -8,7 +8,7 @@ export default class ApiError extends Error{
     }
 
     static badRequest(message : string) {
-        return new ApiError(404, message)
+        return new ApiError(400, message)
     }
 
     static internal(message : string) {

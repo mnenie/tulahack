@@ -1,4 +1,4 @@
-import seq from '../db.js';
+import seq from '../db/postgres';
 import { DataTypes, Model, Optional } from 'sequelize';
 
 interface UserAttributes{

@@ -1,5 +1,5 @@
 import { Sequelize, Dialect } from "sequelize";
-import {config} from 'dotenv'
+import {config} from 'dotenv';
 config()
 export default new Sequelize(
     process.env.DB_NAME as string, 
