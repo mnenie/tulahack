@@ -9,6 +9,11 @@ interface EventAttributes{
     endDate: Date;
     location : string;
     tags : string[];
+    mainPic : string;
+    isRegular : boolean;
+    price : number;
+    pics : string[];
+
     createdAt?: Date;
     updatedAt?: Date;
     deletedAt?: Date;
@@ -22,6 +27,10 @@ class Event extends Model<EventAttributes, Optional<EventAttributes,'id'>> imple
     public endDate!: Date;
     public location! : string;
     public tags! : string[];
+    public mainPic! : string;
+    public isRegular! : boolean;
+    public price! : number;
+    public pics! : string[];
 
     public createdAt!: Date;
     public updatedAt!: Date;
@@ -52,6 +61,19 @@ Event.init({
     },
     tags : {
         type : DataTypes.ARRAY
+    },
+    mainPic : {
+        type : DataTypes.STRING,
+        unique : true,
+    },
+    pics : {
+        type : DataTypes.ARRAY
+    },
+    price : {
+        type : DataTypes.INTEGER
+    },
+    isRegular : {
+        type : DataTypes.BOOLEAN
     }
 },{
     timestamps: true,
