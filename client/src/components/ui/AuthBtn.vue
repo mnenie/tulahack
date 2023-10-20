@@ -14,7 +14,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .btn {
-  padding: 12px 18px;
+  padding: 12px 19px;
   display: flex;
   align-items: center;
   gap: 6px;
