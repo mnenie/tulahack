@@ -3,6 +3,7 @@ import {sign} from 'jsonwebtoken';
 import ApiError from '../errors/ApiError';
 import User from '../models/User';
 import {hash} from 'bcrypt'
+
 const generateJwt = (id : number, email : string) => {
     return sign(
         {id, email},
@@ -39,7 +40,7 @@ export default class UserController{
         }
     }
 
-    static async getInfo(req: Request, res: Response){
+    static async verify(req: Request, res: Response){
 
     }
 }
