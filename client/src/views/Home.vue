@@ -1,10 +1,10 @@
 <script setup lang="ts">
-
+import HomeBlocks from '@/components/HomeBlocks.vue';
 </script>
 
 <template>
   <div>
-    Начало!
+    <HomeBlocks />
   </div>
 </template>
 
