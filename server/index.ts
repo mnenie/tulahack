@@ -1,13 +1,17 @@
-import express, { Request, Response } from 'express';
+import express, { Application } from 'express';
 import { config } from 'dotenv';
 config()
 
-const app = express();
+const app : Application = express();
 const port = process.env.PORT || 5000;
 
-app.use('/', (req,res) => res.json({"hello":"world"}) )
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-
-app.listen(port, () => {
-    console.log(`listening on port ${port}`)
-});
+try{
+    app.listen(port, () => {
+        console.log(`listening on port ${port}`)
+    });
+}catch(e){
+    console.log(e);
+}
