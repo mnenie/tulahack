@@ -41,6 +41,7 @@ defineProps<{
   gap: 50px;
   border-radius: 5px;
   border: 1px solid var(--main-color);
+  padding-right: 30px;
 }
 
 .img {

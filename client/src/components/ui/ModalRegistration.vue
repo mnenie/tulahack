@@ -4,7 +4,7 @@ import InputItem from './InputItem.vue';
 import Modal from './Modal.vue';
 
 
-const imgPeople = ref('/img/registartion.png')
+const imgPeople = ref('/img/registration.png')
 const modalId = 'modalRegistration'
 
 const uploadImage = () => {

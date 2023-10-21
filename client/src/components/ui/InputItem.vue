@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { IInput } from '@/types/input.interface';
+import { ref } from 'vue';
 defineProps<{
   inputEl: IInput[]
 }>()

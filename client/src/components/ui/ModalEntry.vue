@@ -10,12 +10,12 @@ const inputs = ref([
   {
     id: 1,
     name: 'E-mail:',
-    place: 'Введите e-mail'
+    place: 'Введите e-mail', 
   },
   {
     id: 2,
     name: 'Пароль:',
-    place: 'Введите пароль'
+    place: 'Введите пароль', 
   },
 ])
 </script>
