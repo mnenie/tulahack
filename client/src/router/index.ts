@@ -1,4 +1,4 @@
-import { AUTHOREVENT_ROUTE, EVENT_ROUTE, HOME_ROUTE } from '@/utils/const'
+import { AUTHOREVENT_ROUTE, CREATE_EVENT, EVENT_ROUTE, HOME_ROUTE } from '@/utils/const'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -18,6 +18,11 @@ const router = createRouter({
       path: AUTHOREVENT_ROUTE,
       name: 'authorevents',
       component: () => import('@/views/AuthorEvents.vue')
+    },
+    {
+      path: CREATE_EVENT,
+      name: 'createevent',
+      component: () => import('@/views/CreateEvent.vue')
     }
   ]
 })

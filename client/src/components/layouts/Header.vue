@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ModalRegistration from '../ui/ModalRegistration.vue';
 import ModalEntry from '../ui/ModalEntry.vue';
-import { HOME_ROUTE } from '@/utils/const';
+import { CREATE_EVENT, HOME_ROUTE } from '@/utils/const';
 import { useRouter } from 'vue-router';
 const router = useRouter()
 </script>
@@ -10,9 +10,13 @@ const router = useRouter()
   <header>
     <div class="container">
       <div class="header_content">
-        <div @click="router.push(HOME_ROUTE)" class="logo">
-          <img src="/icons/1.png" alt="">
-          <h1 class="size_1">L<span>i</span>veEvents</h1>
+        <div style="display: flex; align-items: center;" class="logo_1">
+          <div @click="router.push(HOME_ROUTE)" class="logo">
+            <img src="/icons/1.png" alt="">
+            <h1 style="margin-right: 50px;" class="size_1">L<span>i</span>veEvents</h1>
+          </div>
+          <router-link style="text-decoration: none; color: var(--black-color);" class="size_7" :to="CREATE_EVENT">Создать
+            мероприятие</router-link>
         </div>
         <div class="btns">
           <btn-auth data-bs-toggle="modal" data-bs-target="#modalRegistration">
@@ -45,15 +49,16 @@ header {
       align-items: center;
       cursor: pointer;
       gap: 12px;
-      & span{
+
+      & span {
         color: var(--main-color);
       }
     }
+
     .btns {
       display: flex;
       gap: 12px;
       align-items: center;
     }
   }
-}
-</style>
+}</style>

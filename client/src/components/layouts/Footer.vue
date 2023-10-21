@@ -11,14 +11,14 @@
           <p class="size_7">© 2023 “LiveEvents” Все права защищены.</p>
         </div>
         <div class="icons">
-          <div class="icons_item">
+          <a target="_blank" href="https://t.me/youngjuicycashrussia" style="text-decoration: none; color: var(--black-color);" class="icons_item">
             <span class="size_7">Tg 1: </span>
             <img src="/icons/tg.svg" alt="">
-          </div>
-          <div class="icons_item">
+          </a>
+          <a target="_blank" href="https://t.me/torderone" style="text-decoration: none; color: var(--black-color);" class="icons_item">
             <span class="size_7">Tg 2: </span>
             <img src="/icons/tg.svg" alt="">
-          </div>
+          </a>
         </div>
       </div>
     </div>

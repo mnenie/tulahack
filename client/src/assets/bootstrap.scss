@@ -524,7 +524,7 @@ textarea.form-control-lg {
   outline: 0;
 }
 .form-check-input:checked {
-  background-color: rgba(111, 115, 238, 1);
+  background-color: var(--main-color);
   // border-color: rgba(111, 115, 238, 1);
 }
 .form-check-input:checked[type='checkbox'] {
