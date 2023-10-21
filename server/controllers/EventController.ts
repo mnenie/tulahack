@@ -5,6 +5,7 @@ import {resolve} from 'path';
 import {v4} from "uuid";
 import fileUpload from "express-fileupload";
 export default class EventController{
+   
     static async create(req : Request, res : Response, next : NextFunction){
         try{    
             const eventAttr : EventInput = req.body as EventInput;
