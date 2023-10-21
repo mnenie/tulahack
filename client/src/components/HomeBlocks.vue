@@ -12,7 +12,7 @@ import HomeBlock from './HomeBlock.vue';
 
 <style lang="scss" scoped>
 .blocks {
-  margin: 80px 0;
+  margin: 50px 0 60px 0;
   display: flex;
   align-items: center;
   gap: 30px;

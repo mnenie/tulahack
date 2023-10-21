@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
-  name: 'btn-auth'
+  name: 'btn-event'
 })
 </script>
 
@@ -14,7 +14,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .btn {
-  padding: 12px 18px;
+  padding: 15px 30px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -22,7 +22,6 @@ export default defineComponent({
   color: var(--black-color);
   border-radius: 10px;
   border: none;
-  height: 46px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
