@@ -27,7 +27,7 @@ export default class UserController{
             userAttr.password = hashPassword;
             const user = await User.create(userAttr);
             const token = generateJwt(user.id, user.email);
-            return res.json({token});
+            return res.json({user, token});
         }catch(err : any) {
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
@@ -45,12 +45,12 @@ export default class UserController{
                     return next(ApiError.internal('Указан неверный пароль'))
                 }
                 const token = generateJwt(user.id, user.email)
-                return res.json({token})
+                return res.json({user, token})
         }catch(err : any){
             return next(ApiError.internal(`Непредвиденная ошибка: ${err.message}`));
         }
     }
-    
+
     //ToDo mail verification 
     static async verify(req: Request, res: Response){
 
