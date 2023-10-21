@@ -9,7 +9,7 @@ export default class EventController{
    
     static async create(req : Request, res : Response, next : NextFunction){
         try{    
-            const eventAttr : EventInput = req.body as EventInput;
+            const eventAttr  = req.body;
             if (eventAttr.price === null) {
                 eventAttr.price = 0;
             }   
@@ -17,7 +17,7 @@ export default class EventController{
             if (mainPic === null || mainPic === undefined) {
                 next(ApiError.badRequest(`нет картинки события`))
             }
-            
+            eventAttr.tags = eventAttr.tags.split(',');
             let fileName =  v4().toString() + ".jpg";
             await mainPic.mv(resolve(__dirname, "..", "static",  fileName));
             eventAttr.mainPic = fileName;
@@ -45,11 +45,11 @@ export default class EventController{
             if (location) {
                 filter.location = location;
             }
-            if (tags) {
-                const tagss = tags as string;
-                const tagArray = tagss.split(',').map(tag => tag.trim().toLocaleLowerCase());
-                filter.tags = { $contains: tagArray };
-              }
+            // if (tags) {
+            //     const tagss = tags as string;
+            //     const tagArray = tagss.split(',').map(tag => tag.trim()); 
+            //     filter.tags = { $in: tagArray }; 
+            // }
             const events = await Event.findAll({ where: filter });
             return res.json(events);
           } catch (error : any) {
@@ -60,6 +60,9 @@ export default class EventController{
     static async getOne(req : Request, res : Response, next : NextFunction){
         const {id} = req.params;
         const event = await Event.findOne({ where: { id: parseInt(id as string) } });
+        if (!event) {
+            return res.status(404).json({msg:`не существует такого события`});
+        }
         const organizer = await User.findOne({where: {id : event?.organizerId}})
         return res.json({ event : event, organizer: organizer});     
     }
@@ -80,6 +83,28 @@ export default class EventController{
             return res.json(resp);  
         }catch(error : any) {
             next(ApiError.internal(`${error.message}`));
+        }
+    }
+
+    static async getParticipants(req : Request, res : Response, next : NextFunction){
+        try{
+
+        }catch(e:any) {
+            next(ApiError.internal(e.message));
+        }
+    }
+
+    static async delete(req : Request, res : Response, next : NextFunction){
+        try{
+            const {id} = req.params;
+            const event = await Event.findOne({where:{id}})
+            if(event?.organizerId !== req.cookies.organizerId){
+                return res.status(403).json({msg:"пользователь не организатор этого события"})
+            }
+            await event?.destroy();
+            return res.json(event);
+        }catch(e:any) {
+            next(ApiError.internal(e.message));
         }
     }
 }

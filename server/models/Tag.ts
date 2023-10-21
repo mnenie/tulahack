@@ -24,7 +24,7 @@ class Tag extends Model<TagAttributes, TagInput> implements TagAttributes{
 
 Tag.init({
     id : {
-        type : DataTypes.INTEGER.UNSIGNED,
+        type : DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -39,5 +39,5 @@ Tag.init({
     paranoid: true,
 
 })
-
+module.exports = Tag;
 export default Tag;

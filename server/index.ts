@@ -35,5 +35,17 @@ const start = async () => {
     }
 }
 
+// const fs = require("fs");
+// import Tag from "./models/Tag";
+// const readFile = fs.readFileSync('./mocks/tags.json', 'utf8');
+// const arr : any[] = JSON.parse(readFile.toString());
+// for (let i = 0; i < arr.length; i++) {
+//     try{
+//       const tag = Tag.create({name : arr[i].name});
+    
+//     }catch(e){
+//       continue
+//     }
+// }
 
 start()
