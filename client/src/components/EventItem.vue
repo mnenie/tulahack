@@ -3,8 +3,9 @@ import type { IEvent } from '@/types/event.interface';
 import Swal from 'sweetalert2';
 import { useRoute, useRouter } from 'vue-router';
 import { HOME_ROUTE } from '../utils/const';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useEvents } from '../stores/events';
+import { IInfo } from '../types/info.interface';
 defineProps<{
   events: IEvent[]
 }>()
@@ -30,39 +31,39 @@ const showAlert = () => {
 const route = useRoute()
 
 const newInfo = useEvents()
+const info = ref<IInfo | null>(null)
 const newFuncInfo = async () => {
-  await newInfo.fetchOneEvent(parseInt(route.params.id as string))
+  info.value = await newInfo.fetchOneEvent(parseInt(route.params.id as string))
 }
 onMounted(()=> {
   newFuncInfo()
 })
-console.log(newInfo.eventInfo)
 </script>
 <template>
   <div class="event_item">
     <div class="first">
       <div class="img">
-        <img :src="newInfo.events.event.mainPic" alt="">
+        <img src="" alt="">
       </div>
       <div class="main_text">
-        <h2 class="size_3">{{ event.name }}</h2>
+        <h2 class="size_3">{{ info?.event.name }}</h2>
         <div class="tags">
-          <span class="size_7" v-for="(i, index) of event.tags" :key="index">
+          <span class="size_7" v-for="(i, index) of info?.event.tags" :key="index">
             {{ i }}
           </span>
         </div>
         <span class="size_6 price">Цена: {{ new Intl.NumberFormat("ru-Ru", {
           style: "currency",
           currency: "rub",
-        }).format(event.price) }}
+        }).format(info?.event.price) }}
         </span>
-        <span class="size_6 date" v-if="event.end_date">Дата мероприятия: {{ event.start_date }} - {{ event.end_date
+        <span class="size_6 date" v-if="info?.event.end_date">Дата мероприятия: {{ info.event.start_date }} - {{ info.event.end_date
         }}</span>
-        <span class="size_6 date" v-else>Дата мероприятия: {{ event.start_date }}</span>
+        <span class="size_6 date" v-else>Дата мероприятия: {{ info?.event.start_date }}</span>
       </div>
     </div>
     <div class="second">
-      <span class="size_5 desc">{{ event.description }}</span>
+      <span class="size_5 desc">{{ info?.event.description }}</span>
       <span style="margin-bottom: 20px;" class="size_5">Автор: </span>
       <btn-event @click="showAlert" style="align-self: flex-start;">Я пойду</btn-event>
     </div>
