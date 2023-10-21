@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import type { IEvent } from "@/types/event.interface"
+import { format } from 'date-fns';
 
 defineProps<{
   events: IEvent[]
 }>()
+function formatDate(dateString: string | Date) {
+  return format(new Date(dateString), 'dd.MM.yyyy');
+}
+
+
 </script>
 
 <template>
@@ -24,8 +30,8 @@ defineProps<{
         currency: "rub",
       }).format(item.price) }}
       </span>
-      <span class="size_6 date" v-if="item.end_date">Дата мероприятия: {{ item.start_date }} - {{ item.end_date }}</span>
-      <span class="size_6 date" v-else>Дата мероприятия: {{ item.start_date }}</span>
+      <span class="size_6 date" v-if="item.endDate">Дата мероприятия: {{ formatDate(item.startDate) }} - {{ formatDate(item.endDate) }}</span>
+      <span class="size_6 date" v-else>Дата мероприятия: {{ item.startDate }}</span>
       <router-link style="text-decoration: none;" :to="{ name: 'event', params: { id: item.id } }">
         <btn-event style="align-self: flex-start;">Подробнее</btn-event>
       </router-link>
@@ -54,23 +60,29 @@ defineProps<{
 .text {
   display: flex;
   flex-direction: column;
-  & h2{
+
+  & h2 {
     margin-bottom: 5px;
   }
-  .desc{
+
+  .desc {
     margin-bottom: 15px;
-  } 
-  .price{
+  }
+
+  .price {
     margin-bottom: 5px;
   }
-  .date{
+
+  .date {
     margin-bottom: 25px;
   }
+
   .tags {
     display: flex;
     gap: 15px;
     align-items: center;
     margin-bottom: 15px;
+
     & span {
       color: var(--main-color);
     }

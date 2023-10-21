@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { IEvent } from '@/types/event.interface';
 import Swal from 'sweetalert2';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { HOME_ROUTE } from '../utils/const';
+import { onMounted } from 'vue';
+import { useEvents } from '../stores/events';
 defineProps<{
   events: IEvent[]
 }>()
@@ -24,12 +26,23 @@ const showAlert = () => {
     }
   });
 }
+
+const route = useRoute()
+
+const newInfo = useEvents()
+const newFuncInfo = async () => {
+  await newInfo.fetchOneEvent(parseInt(route.params.id as string))
+}
+onMounted(()=> {
+  newFuncInfo()
+})
+console.log(newInfo.eventInfo)
 </script>
 <template>
-  <div v-for="event in events" :key="event.id" class="event_item">
+  <div class="event_item">
     <div class="first">
       <div class="img">
-        <img :src="event.mainPic" alt="">
+        <img :src="newInfo.events.event.mainPic" alt="">
       </div>
       <div class="main_text">
         <h2 class="size_3">{{ event.name }}</h2>

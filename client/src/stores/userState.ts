@@ -19,9 +19,10 @@ export const useUser = defineStore('user', () => {
   const registration = async (u: IUser) => {
     try {
       const resp = await $api.post('/users/register', u)
-      localStorage.setItem('token', resp.data.tokens.accessToken)
-      setAuth(true)
+      localStorage.setItem('token', resp.data.token)
       setUser(resp.data.user)
+      setAuth(true)
+      localStorage.setItem('user', JSON.stringify(user.value))
       return resp.status
     } catch (e: any) {
       console.log(e)
@@ -32,21 +33,22 @@ export const useUser = defineStore('user', () => {
   const login = async (u1: IUser) => {
     try {
       const response = await $api.post('/users/login', u1)
-      localStorage.setItem('token', response.data.tokens.accessToken)
+      localStorage.setItem('token', response.data.token)
       setAuth(true)
       setUser(response.data.user)
+      localStorage.setItem('user', JSON.stringify(user.value))
       return response.status
     } catch (e: any) {
       return e.response.status
     }
   }
 
-  return{
-    user, 
-    isAuth, 
-    setAuth, 
+  return {
+    user,
+    isAuth,
+    setAuth,
     setUser,
-    registration, 
+    registration,
     login
   }
 })

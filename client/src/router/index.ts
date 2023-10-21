@@ -23,7 +23,12 @@ const router = createRouter({
       path: CREATE_EVENT,
       name: 'createevent',
       component: () => import('@/views/CreateEvent.vue')
-    }
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('@/views/Account.vue')
+    },
   ]
 })
 

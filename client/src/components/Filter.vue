@@ -1,5 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Date from './Date.vue';
+import { useEvents } from '@/stores/events';
+const filters = ref([
+  {
+    id: 1,
+    name: '1'
+  },
+  {
+    id: 2,
+    name: '2'
+  },
+  {
+    id: 3,
+    name: '3'
+  },
+])
+const filterUse = useEvents()
+
 </script>
 
 <template>
@@ -7,11 +25,7 @@ import Date from './Date.vue';
     <div class="filter">
       <Date />
       <div class="filter_block">
-        <span class="size_7">Все мероприятия</span>
-        <span class="size_7">Кружки по интересам</span>
-        <span class="size_7">Лекции</span>
-        <span class="size_7">Концерты</span>
-        <span class="size_7">Регулярные события</span>
+        <span @click="filterUse.filterItems(index)" v-for="(filter, index) in filters" :key="filter.id" class="size_7">{{ filter.name }}</span>
       </div>
     </div>
   </div>

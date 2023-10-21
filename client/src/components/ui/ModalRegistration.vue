@@ -67,9 +67,9 @@ const Registration = async () => {
   await regNew.registration(reg)
   model1.value = ''
   model2.value = ''
-  model3.value= ''
+  model3.value = ''
   model4.value = ''
-  model5.value= ''
+  model5.value = ''
 }
 </script>
 
@@ -217,4 +217,5 @@ const Registration = async () => {
   font-weight: 400;
   line-height: 130%;
   color: red;
-}</style>
+}
+</style>
