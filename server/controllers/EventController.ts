@@ -30,7 +30,7 @@ export default class EventController{
 
     static async get(req : Request, res : Response, next : NextFunction){
         try {
-            const {name, startDate , endDate, category, tags} = req.query;
+            const {name, startDate , endDate, location, tags} = req.query;
             const filter : any = {};
       
             if (startDate) {
@@ -42,12 +42,12 @@ export default class EventController{
             if (name){
                 filter.name = name;
             }
-            if (category) {
-                filter.category = category;
+            if (location) {
+                filter.location = location;
             }
             if (tags) {
                 const tagss = tags as string;
-                const tagArray = tagss.split(',').map(tag => tag.trim());
+                const tagArray = tagss.split(',').map(tag => tag.trim().toLocaleLowerCase());
                 filter.tags = { $contains: tagArray };
               }
             const events = await Event.findAll({ where: filter });
@@ -77,7 +77,7 @@ export default class EventController{
                     id: id,
                   },
             });
-            return res.json(resp);
+            return res.json(resp);  
         }catch(error : any) {
             next(ApiError.internal(`${error.message}`));
         }
