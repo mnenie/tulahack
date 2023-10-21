@@ -28,6 +28,9 @@ class User extends Model<UserAttributes, Optional<UserAttributes,'id'>> implemen
     public readonly deletedAt!: Date;
 }
 
+export interface UserInput extends Optional<UserAttributes, 'id'> {}
+export interface UserOutput extends Required<UserAttributes> {}
+
 User.init({
     id : {
         type : DataTypes.INTEGER.UNSIGNED,
@@ -48,7 +51,7 @@ User.init({
     },
     avatar : {
         type: DataTypes.STRING,
-        defaultValue: ""
+        defaultValue: "stdavatar.jpg"
     },
     organization : {
         type : DataTypes.STRING,
