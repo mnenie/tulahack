@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import MultiSelect from 'primevue/multiselect';
 import { ref } from 'vue';
 import InputItem from '@/components/ui/InputItem.vue';
-const imgPeople = ref('/img/registration.png')
 import Swal from 'sweetalert2';
 import { useRouter } from 'vue-router';
 import { HOME_ROUTE } from '@/utils/const';
+import { arr } from '../utils/const';
+import $api from '@/http';
 
+
+const imgPeople = ref('/img/registration.png')
 const uploadImage = () => {
   const input = document.createElement("input");
   input.type = "file";
@@ -26,7 +30,11 @@ const uploadImage = () => {
   input.click();
 }
 const router = useRouter()
-const create = () => {
+const create = async () => {
+  const formData = new FormData()
+  formData.append('mainPic', imgPeople.value)
+
+  const response = await $api.post('/events/create', {name: model1.value, description: model2.value, startDate: model3.value, endDate: model6.value, location: model4.value, tags:selectedTags.value, price: model5.value, isRegular: check1.value, mainPic: formData});
   Swal.fire({
     title: 'Ваше мероприятие создано',
     icon: 'success',
@@ -43,6 +51,19 @@ const create = () => {
     }
   });
 }
+const selectedTags = ref();
+const tags = ref(arr)
+
+const model1 = ref('')
+const model2 = ref('')
+const model3 = ref('')
+const model6 = ref('')
+const model4 = ref('')
+const model5 = ref('')
+
+const check1 = ref('option2')
+const selectedOptions = ref([])
+
 const inputs = ref([
   {
     id: 1,
@@ -70,6 +91,7 @@ const inputs = ref([
     place: 'Введите цену'
   },
 ])
+
 </script>
 
 <template>
@@ -84,26 +106,68 @@ const inputs = ref([
               изображение</a>
           </div>
           <div class="inputs">
-            <InputItem :input-el="inputs" />
+            <!-- <InputItem :input-el="inputs" /> -->
+            <div class="input_el_full">
+              <p class="subheading">Название мероприятия: </p>
+              <input v-model="model1" class="input_el" placeholder="Введите название мероприятия">
+              <div class="error_message">
+              </div>
+            </div>
+            <div class="input_el_full">
+              <p class="subheading">Описание мероприятия:</p>
+              <input v-model="model2" class="input_el" placeholder="Введите описание мероприятия">
+              <div class="error_message">
+              </div>
+            </div>
+            <div class="input_el_full">
+              <p class="subheading">Дата начала:</p>
+              <input v-model="model3" class="input_el" placeholder="Введите дату">
+              <div class="error_message">
+              </div>
+            </div>
+            <div class="input_el_full">
+              <p class="subheading">Дата окончания(если есть):</p>
+              <input v-model="model6" class="input_el" placeholder="Введите дату">
+              <div class="error_message">
+              </div>
+            </div>
+            <div class="input_el_full">
+              <p class="subheading">Место проведения:</p>
+              <input v-model="model4" class="input_el" placeholder="Введите место проведения">
+              <div class="error_message">
+              </div>
+            </div>
+            <div class="input_el_full">
+              <p class="subheading">Цена на мероприятие:</p>
+              <input v-model="model5" class="input_el" placeholder="Введите цену">
+              <div class="error_message">
+              </div>
+            </div>
             <div class="check">
               <span>Сделать событие регулярным?</span>
               <div style="display: flex; align-items: center; gap: 12px;" class="checks">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <input v-model="check1" value="option1" class="form-check-input" type="radio" name="flexRadioDefault"
+                    id="flexRadioDefault1">
                   <label class="form-check-label" for="flexRadioDefault1">
                     Да
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                  <input v-model="check1" value="option2" class="form-check-input" type="radio" name="flexRadioDefault"
+                    id="flexRadioDefault2" checked>
                   <label class="form-check-label" for="flexRadioDefault2">
                     Нет
                   </label>
                 </div>
               </div>
             </div>
-            
-            <btn-auth @click="create" data-bs-dismiss="modal" style="width: 100%; justify-content: center;">Создать</btn-auth>
+            <div class="card">
+              <MultiSelect v-model="selectedTags" :options="tags" optionLabel="name" placeholder="Select Cities"
+                :maxSelectedLabels="3" class="select" />
+            </div>
+            <btn-auth @click="create" data-bs-dismiss="modal"
+              style="width: 100%; justify-content: center;">Создать</btn-auth>
           </div>
         </div>
       </div>
@@ -161,5 +225,73 @@ const inputs = ref([
     line-height: 120%;
     color: var(--black-color);
   }
+}
+
+.input_el_full {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.input_el {
+  border-radius: 12px;
+  border: 1px solid var(--main-color);
+  background: var(--white-color);
+  padding: 15px;
+  width: 100%;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  color: var(--black-color);
+  outline: none;
+  transition: 0.15s ease-in;
+}
+
+.input_el::placeholder {
+  color: var(--black-color);
+  transition: 0.15s ease-in;
+}
+
+.input_el:hover::placeholder {
+  color: var(--black-color);
+}
+
+.input_el:focus {
+  color: var(--black-color);
+  border: 1px solid var(--main-color);
+}
+
+.input_el:focus::placeholder {
+  color: var(--black-color);
+}
+
+.subheading {
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  color: var(--black-color);
+}
+
+// .invalid:focus, .invalid {
+//   border: 1px solid var(--accent-color-ff-704-d);
+//   color: var(--accent-color-ff-704-d);
+// }
+.error_message {
+  margin-top: 2px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  color: red;
+}
+.card{
+}
+.select {
+  background: var(--white-color);
+  border: 1px solid var(--main-color);
+  height: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+  // padding: 30px;
 }
 </style>

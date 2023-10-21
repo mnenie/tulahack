@@ -5,7 +5,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { HOME_ROUTE } from '../utils/const';
 import { onMounted, ref } from 'vue';
 import { useEvents } from '../stores/events';
-import { IInfo } from '../types/info.interface';
+import type { IInfo } from '../types/info.interface';
+
+import { format } from 'date-fns';
+
+function formatDate(dateString: string | Date) {
+  return format(new Date(dateString), 'dd.MM.yyyy');
+}
 defineProps<{
   events: IEvent[]
 }>()
@@ -35,16 +41,14 @@ const info = ref<IInfo | null>(null)
 const newFuncInfo = async () => {
   info.value = await newInfo.fetchOneEvent(parseInt(route.params.id as string))
 }
-onMounted(()=> {
+onMounted(() => {
   newFuncInfo()
 })
 </script>
 <template>
   <div class="event_item">
     <div class="first">
-      <div class="img">
-        <img src="" alt="">
-      </div>
+      <img class="img" :src="`http://localhost:8080/${info?.event.mainPic}`" alt="">
       <div class="main_text">
         <h2 class="size_3">{{ info?.event.name }}</h2>
         <div class="tags">
@@ -57,9 +61,10 @@ onMounted(()=> {
           currency: "rub",
         }).format(info?.event.price) }}
         </span>
-        <span class="size_6 date" v-if="info?.event.end_date">Дата мероприятия: {{ info.event.start_date }} - {{ info.event.end_date
+        <span class="size_6 date" v-if="info?.event.endDate">Дата мероприятия: {{ formatDate(info?.event.startDate) }} - {{ formatDate(
+          info.event.endDate)
         }}</span>
-        <span class="size_6 date" v-else>Дата мероприятия: {{ info?.event.start_date }}</span>
+        <span class="size_6 date" v-else>Дата мероприятия: {{ info?.event.startDate }}</span>
       </div>
     </div>
     <div class="second">
@@ -137,10 +142,12 @@ onMounted(()=> {
     bottom: -250px;
     right: -250px;
   }
-  .img_right{
+
+  .img_right {
     position: absolute;
     top: 20px;
     right: 20px;
   }
 }
+
 </style>

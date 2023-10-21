@@ -14,9 +14,7 @@ function formatDate(dateString: string | Date) {
 
 <template>
   <div v-for="item in events" :key="item.id" class="event_block">
-    <div class="img">
-      <img :src="item.mainPic" alt="">
-    </div>
+      <img style="width: 320px; height: 250px; border-radius: 5px;" :src="`http://localhost:8080/${item.mainPic}`" alt="">
     <div class="text">
       <h2 class="size_3">{{ item.name }}</h2>
       <div class="tags">
@@ -47,13 +45,13 @@ function formatDate(dateString: string | Date) {
   gap: 50px;
   border-radius: 5px;
   border: 1px solid var(--main-color);
-  padding-right: 30px;
+  padding: 30px;
 }
 
 .img {
   width: 300px;
   height: 270px;
-  background: var(--bg-color);
+  // background: var(--bg-color);
   border-radius: 5px;
 }
 
