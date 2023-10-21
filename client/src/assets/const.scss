@@ -1,0 +1,64 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  min-width: 540px;
+  font-family: 'Jost', sans-serif;
+  text-size-adjust: 100%;
+  overflow-x: hidden;
+}
+.container{
+  max-width: 1110px;
+  margin: 0 auto;
+  width: 100%;
+}
+button{cursor: pointer;}
+
+
+//fonts
+.size_1{
+  font-size: 35px;
+}
+.size_2{
+  font-size: 30px;
+}
+.size_3{
+  font-size: 25px;
+}
+.size_4{
+  font-size: 20px;
+}
+.size_5{
+  font-size: 18px;
+}
+.size_6{
+  font-size: 16px;
+}
+.size_7{
+  font-size: 14px;
+}
+
+.my-confirm-button-class {
+  margin-top: 30px;
+  border: none !important;
+  padding: 12px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: var(--main-color);
+  color: var(--black-color);
+  border-radius: 10px;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  height: 46px;
+  font-size: 14px;
+  line-height: normal;
+}
