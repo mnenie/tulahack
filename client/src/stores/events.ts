@@ -34,7 +34,7 @@ export const useEvents = defineStore('events', () => {
     }
   ])
 
-  const event = ref<IEvent[]>([
+  const event = ref([
     {
       id: 1,
       name: 'Смешарики. Искусство быть круглым',

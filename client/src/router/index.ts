@@ -1,4 +1,4 @@
-import { AUTHOREVENT_ROUTE, AUTH_ROUTE, EVENT_ROUTE, HOME_ROUTE } from '@/utils/const'
+import { AUTHOREVENT_ROUTE, EVENT_ROUTE, HOME_ROUTE } from '@/utils/const'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -8,11 +8,6 @@ const router = createRouter({
       path: HOME_ROUTE,
       name: 'home',
       component: () => import('@/views/Home.vue')
-    },
-    {
-      path: AUTH_ROUTE,
-      name: 'auth',
-      component: () => import('@/views/Auth.vue')
     },
     {
       path: EVENT_ROUTE,

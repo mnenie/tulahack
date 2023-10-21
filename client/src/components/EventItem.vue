@@ -54,13 +54,14 @@ const showAlert = () => {
       <btn-event @click="showAlert" style="align-self: flex-start;">Я пойду</btn-event>
     </div>
     <div class="round"></div>
+    <img class="img_right" src="/img/2.png" alt="">
   </div>
 </template>
 
 <style lang="scss" scoped>
 .event_item {
   position: relative;
-  max-width: 800px;
+  max-width: 100%;
   display: block;
   margin: 0 auto;
   padding: 20px 20px;
@@ -73,8 +74,7 @@ const showAlert = () => {
   .first {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    gap: 30px;
+    gap: 40px;
     margin-bottom: 50px;
 
     .img {
@@ -116,12 +116,17 @@ const showAlert = () => {
 
   .round {
     position: absolute;
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 500px;
     background: var(--main-color);
     border-radius: 50%;
-    bottom: -150px;
-    right: -150px;
+    bottom: -250px;
+    right: -250px;
+  }
+  .img_right{
+    position: absolute;
+    top: 20px;
+    right: 20px;
   }
 }
 </style>

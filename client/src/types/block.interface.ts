@@ -1,5 +1,5 @@
-export interface IBlock{
-  id: number;
-  title: string;
-  img: string;
+export interface IBlock {
+  id: number
+  title: string
+  img: string
 }

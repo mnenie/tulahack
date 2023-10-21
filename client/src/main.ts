@@ -14,6 +14,7 @@ const options = {
   confirmButtonColor: '#fff',
   cancelButtonColor: '#ff7674',
 };
+import * as bootstrap from 'bootstrap'
 
 
 const app = createApp(App)
@@ -27,4 +28,5 @@ app.component('Datepicker', VueDatepickerUi)
 app.use(createPinia())
 app.use(router)
 app.use(VueSweetalert2, options);
+app.use(bootstrap)
 app.mount('#app')

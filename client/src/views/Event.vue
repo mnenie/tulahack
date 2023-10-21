@@ -25,6 +25,7 @@ onMounted(() => {
 <template>
   <div class="event_page">
     <div class="container">
+      <h2 style="margin-bottom: 20px;" class="size_1">Выбранное мероприятие: </h2>
       <EventItem :events="selectedProduct ? [selectedProduct] : []" />
     </div>
   </div>
