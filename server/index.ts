@@ -4,7 +4,7 @@ import router from './routes/router';
 import sequelize from './db/postgres';
 import errorHandling from './middlewares/errorMiddleware'
 import {json, urlencoded} from 'body-parser';
-// import cors from 'cors';
+const cors = require('cors')
 import {resolve} from 'path';
 import fileUpload from 'express-fileupload';
 config()
@@ -12,7 +12,7 @@ config()
 const app : Application = express();
 const port = process.env.PORT || 5000;
 
-// app.use(cors())
+app.use(cors())
 app.use(express.static(resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use(json());

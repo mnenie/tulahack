@@ -13,7 +13,7 @@ export default class EventController{
             if (eventAttr.price === null) {
                 eventAttr.price = 0;
             }   
-            const {mainPic} : any = req.files ;
+            const {mainPic} : any = req.files;
             if (mainPic === null || mainPic === undefined) {
                 next(ApiError.badRequest(`нет картинки события`))
             }
