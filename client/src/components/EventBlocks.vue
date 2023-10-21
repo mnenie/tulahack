@@ -16,7 +16,8 @@ onMounted(()=> {
   <div class="event_display">
     <div class="container">
       <div class="blocks">
-        <EventBlock :events="events.filteredEvents" />
+        <EventBlock v-if="events.filteredEvents.length !== 0" :events="events.filteredEvents " />
+        <p v-else style="color: red; margin-top: 20px;">Нет доступных мероприятий</p>
       </div>
     </div>
   </div>

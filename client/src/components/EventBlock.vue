@@ -9,7 +9,6 @@ function formatDate(dateString: string | Date) {
   return format(new Date(dateString), 'dd.MM.yyyy');
 }
 
-
 </script>
 
 <template>

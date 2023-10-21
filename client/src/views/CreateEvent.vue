@@ -162,8 +162,8 @@ const inputs = ref([
                 </div>
               </div>
             </div>
-            <div class="card">
-              <MultiSelect v-model="selectedTags" :options="tags" optionLabel="name" placeholder="Select Cities"
+            <div class="card_select">
+              <MultiSelect v-model="selectedTags" :options="tags" optionLabel="name" placeholder="Выбирите тэги"
                 :maxSelectedLabels="3" class="select" />
             </div>
             <btn-auth @click="create" data-bs-dismiss="modal"
@@ -284,7 +284,8 @@ const inputs = ref([
   line-height: 130%;
   color: red;
 }
-.card{
+.card_select{
+  border-radius: 10px;
 }
 .select {
   background: var(--white-color);
@@ -292,6 +293,8 @@ const inputs = ref([
   height: 40px;
   border-radius: 10px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
   // padding: 30px;
 }
 </style>
