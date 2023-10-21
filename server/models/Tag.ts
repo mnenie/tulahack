@@ -10,7 +10,10 @@ interface TagAttributes{
     deletedAt?: Date
 }
 
-class Tag extends Model<TagAttributes, Optional<TagAttributes,'id'>> implements TagAttributes{
+export interface TagInput extends Optional<TagAttributes, 'id'> {}
+export interface TagOutput extends Required<TagAttributes> {}
+
+class Tag extends Model<TagAttributes, TagInput> implements TagAttributes{
     public id! : number;
     public name! : string;
     
@@ -28,6 +31,7 @@ Tag.init({
     name : {
         type : DataTypes.STRING,
         unique : true,
+        allowNull: false,
     },
 },{
     timestamps: true,
@@ -36,4 +40,4 @@ Tag.init({
 
 })
 
-export default Event;
+export default Tag;

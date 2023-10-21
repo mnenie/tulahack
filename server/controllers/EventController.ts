@@ -2,8 +2,9 @@ import express, { Request,Response,NextFunction } from "express";
 import Event,{EventInput} from "../models/Event";
 import ApiError from '../errors/ApiError';
 import {resolve} from 'path';
+import seq from '../db/postgres';
 import {v4} from "uuid";
-import fileUpload from "express-fileupload";
+import User from "../models/User";
 export default class EventController{
    
     static async create(req : Request, res : Response, next : NextFunction){
@@ -28,10 +29,57 @@ export default class EventController{
     }  
 
     static async get(req : Request, res : Response, next : NextFunction){
-
+        try {
+            const {name, startDate , endDate, category, tags} = req.query;
+            const filter : any = {};
+      
+            if (startDate) {
+              filter.startDate = { $gte: new Date(startDate as string) };
+            }
+            if (endDate) {
+              filter.endDate = { $lte: new Date(endDate as string) };
+            }
+            if (name){
+                filter.name = name;
+            }
+            if (category) {
+                filter.category = category;
+            }
+            if (tags) {
+                const tagss = tags as string;
+                const tagArray = tagss.split(',').map(tag => tag.trim());
+                filter.tags = { $contains: tagArray };
+              }
+            const events = await Event.findAll({ where: filter });
+            return res.json(events);
+          } catch (error : any) {
+            next(ApiError.internal(`${error.message}`));
+          }
     }
 
     static async getOne(req : Request, res : Response, next : NextFunction){
+        const {id} = req.params;
+        const event = await Event.findOne({ where: { id: parseInt(id as string) } });
+        const organizer = await User.findOne({where: {id : event?.organizerId}})
+        return res.json({ event : event, organizer: organizer});     
+    }
 
+    static async register(req : Request, res : Response, next : NextFunction){
+        try{
+            const {participantId} = req.body;
+            const {id} = req.params;
+            const resp = await Event.update(
+                {
+                  tags: seq.literal(`array_append(tags, '${participantId}')`),
+                },
+                {
+                  where: {
+                    id: id,
+                  },
+            });
+            return res.json(resp);
+        }catch(error : any) {
+            next(ApiError.internal(`${error.message}`));
+        }
     }
 }

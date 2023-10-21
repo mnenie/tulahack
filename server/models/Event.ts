@@ -8,7 +8,9 @@ interface EventAttributes{
     startDate : Date;
     endDate: Date;
     location : string;
+    organizerId : number;
     tags? : string[];
+    participants : number[];
     mainPic : string;
     isRegular? : boolean;
     price? : number;
@@ -29,8 +31,10 @@ class Event extends Model<EventAttributes, EventInput> implements EventAttribute
     public startDate! : Date;
     public endDate!: Date;
     public location! : string;
+    public organizerId! : number;
     public tags! : string[];
     public mainPic! : string;
+    public participants! : number[];
     public isRegular! : boolean;
     public price! : number;
     public pics! : string[];
@@ -51,6 +55,10 @@ Event.init({
         allowNull : true,
         unique : true,
     },
+    participants : {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
+    },
     description : {
         allowNull: false,
         type: DataTypes.TEXT,
@@ -66,6 +74,10 @@ Event.init({
     location : {
         allowNull : false,
         type : DataTypes.STRING,
+    },
+    organizerId :{
+        allowNull: false,
+        type: DataTypes.INTEGER,
     },
     tags : {
         type : DataTypes.ARRAY(DataTypes.STRING),
