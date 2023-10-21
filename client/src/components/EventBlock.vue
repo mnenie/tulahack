@@ -26,7 +26,9 @@ defineProps<{
       </span>
       <span class="size_6 date" v-if="item.end_date">Дата мероприятия: {{ item.start_date }} - {{ item.end_date }}</span>
       <span class="size_6 date" v-else>Дата мероприятия: {{ item.start_date }}</span>
-      <btn-event style="align-self: flex-start;">Подробнее</btn-event>
+      <router-link style="text-decoration: none;" :to="{ name: 'event', params: { id: item.id } }">
+        <btn-event style="align-self: flex-start;">Подробнее</btn-event>
+      </router-link>
     </div>
   </div>
 </template>

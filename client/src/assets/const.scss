@@ -44,3 +44,20 @@ button{cursor: pointer;}
 .size_7{
   font-size: 14px;
 }
+
+.my-confirm-button-class {
+  margin-top: 30px;
+  border: none !important;
+  padding: 12px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: var(--main-color);
+  color: var(--black-color);
+  border-radius: 10px;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  height: 46px;
+  line-height: normal;
+}
