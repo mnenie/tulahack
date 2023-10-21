@@ -17,4 +17,11 @@ import HomeBlock from './HomeBlock.vue';
   align-items: center;
   gap: 30px;
 }
+@media screen and (max-width: 890px){
+    .blocks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 50px 0;
+    }
+}
 </style>

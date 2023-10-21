@@ -62,4 +62,11 @@ const items: IBlock[] = [
     bottom: -200px;
   }
 }
+
+@media screen and (max-width: 890px){
+  .block {
+    max-width: 410px;
+    min-height: 250px;
+  }
+}
 </style>
