@@ -15,15 +15,18 @@ export default class EventController{
             }   
             const {mainPic} : any = req.files;
             if (mainPic === null || mainPic === undefined) {
+                console.log("нет картинки")
                 next(ApiError.badRequest(`нет картинки события`))
             }
-            eventAttr.tags = eventAttr.tags.split(',');
+            if (eventAttr.tags)
+                eventAttr.tags = eventAttr.tags.split(',');
             let fileName =  v4().toString() + ".jpg";
             await mainPic.mv(resolve(__dirname, "..", "static",  fileName));
             eventAttr.mainPic = fileName;
             const event = await Event.create(eventAttr);
             return res.json(event);
         }catch(e: any){
+            console.log(e.message);
             next(ApiError.badRequest(`ошибка создания события ${e.message}`))
         }
     }  
