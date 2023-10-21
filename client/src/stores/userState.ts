@@ -18,20 +18,20 @@ export const useUser = defineStore('user', () => {
 
   const registration = async (u: IUser) => {
     try {
-      const resp = await $api.post('http://localhost:8080/api/account/register', u)
+      const resp = await $api.post('/users/register', u)
       localStorage.setItem('token', resp.data.tokens.accessToken)
       setAuth(true)
       setUser(resp.data.user)
       return resp.status
     } catch (e: any) {
+      console.log(e)
       return e.response.status
     }
   }
 
   const login = async (u1: IUser) => {
     try {
-      const response = await $api.post('http://localhost:8080/api/account/login', 
-        u1)
+      const response = await $api.post('/users/login', u1)
       localStorage.setItem('token', response.data.tokens.accessToken)
       setAuth(true)
       setUser(response.data.user)

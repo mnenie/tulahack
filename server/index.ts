@@ -12,7 +12,10 @@ config()
 const app: Application = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}))
 app.use(express.static(resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use(json());
