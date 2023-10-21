@@ -68,7 +68,6 @@ Event.init({
         type: DataTypes.DATE,
     },
     endDate : {
-        allowNull : false,
         type: DataTypes.DATE,
     },
     location : {

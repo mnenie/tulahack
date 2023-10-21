@@ -7,34 +7,44 @@ import { useRouter } from 'vue-router';
 import { HOME_ROUTE } from '@/utils/const';
 import { arr } from '../utils/const';
 import $api from '@/http';
-
+import { format } from 'date-fns';
 
 const imgPeople = ref('/img/registration.png')
+const mainPicFile = ref();
 const uploadImage = () => {
   const input = document.createElement("input");
+  input.id = "file";
   input.type = "file";
   input.accept = "image/jpeg,image/png";
   input.addEventListener("change", (event: Event) => {
     const target = event.target as HTMLInputElement;
-    const file = target.files?.[0];
-
-    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        const newImg = e.target?.result as string;
-        imgPeople.value = newImg;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+    mainPicFile.value = target.files?.[0];
+    
+  })
   input.click();
 }
 const router = useRouter()
 const create = async () => {
-  const formData = new FormData()
-  formData.append('mainPic', imgPeople.value)
-
-  const response = await $api.post('/events/create', {name: model1.value, description: model2.value, startDate: model3.value, endDate: model6.value, location: model4.value, tags:selectedTags.value, price: model5.value, isRegular: check1.value, mainPic: formData});
+  const formData = new FormData();
+    formData.append('mainPic', mainPicFile.value);
+    formData.append('name', model1.value);
+    formData.append('description', model2.value);
+    formData.append('startDate', format(new Date(model3.value) , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
+    formData.append('endDate', format(new Date(model6.value) , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
+    formData.append('location', model4.value);
+    formData.append('tags', selectedTags.value.map((obj : any) => obj.name).join(','));
+    formData.append('price', model5.value);
+    formData.append('isRegular', check1.value.toString());
+    formData.append('organizerId', JSON.parse(localStorage.getItem('user') as string).id);
+    try{
+      const response = await $api.post('/events/create',formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+    }); 
+  }catch(e){
+    console.log(e)
+  }
   Swal.fire({
     title: 'Ваше мероприятие создано',
     icon: 'success',
@@ -61,7 +71,7 @@ const model6 = ref('')
 const model4 = ref('')
 const model5 = ref('')
 
-const check1 = ref('option2')
+const check1 = ref<boolean>(false)
 const selectedOptions = ref([])
 
 const inputs = ref([
@@ -147,14 +157,14 @@ const inputs = ref([
               <span>Сделать событие регулярным?</span>
               <div style="display: flex; align-items: center; gap: 12px;" class="checks">
                 <div class="form-check">
-                  <input v-model="check1" value="option1" class="form-check-input" type="radio" name="flexRadioDefault"
+                  <input v-model="check1" :value="true" class="form-check-input" type="radio" name="flexRadioDefault"
                     id="flexRadioDefault1">
                   <label class="form-check-label" for="flexRadioDefault1">
                     Да
                   </label>
                 </div>
                 <div class="form-check">
-                  <input v-model="check1" value="option2" class="form-check-input" type="radio" name="flexRadioDefault"
+                  <input v-model="check1" :value="false" class="form-check-input" type="radio" name="flexRadioDefault"
                     id="flexRadioDefault2" checked>
                   <label class="form-check-label" for="flexRadioDefault2">
                     Нет

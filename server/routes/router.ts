@@ -3,6 +3,9 @@ import UserController from '../controllers/UserController';
 import EventController from '../controllers/EventController';
 import TagController from '../controllers/TagController';
 import checkAuth from '../middlewares/checkAuth';
+import multer from 'multer';
+
+
 const router = Router();
 
 router.post('/users/register', UserController.register);
