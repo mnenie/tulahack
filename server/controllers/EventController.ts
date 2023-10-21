@@ -24,6 +24,7 @@ export default class EventController{
             const event = await Event.create(eventAttr);
             return res.json(event);
         }catch(e: any){
+            console.log(e.message)
             next(ApiError.badRequest(`ошибка создания события ${e.message}`))
         }
     }  
