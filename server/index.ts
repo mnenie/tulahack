@@ -1,26 +1,20 @@
-import express, { Application } from "express";
-import { config } from "dotenv";
-import router from "./routes/router";
-import sequelize from "./db/postgres";
-import errorHandling from "./middlewares/errorMiddleware";
-import { json, urlencoded } from "body-parser";
-// import cors from 'cors';
-const cors = require("cors");
-import { resolve } from "path";
-import fileUpload from "express-fileupload";
-config();
+import express, { Application } from 'express';
+import {config} from 'dotenv';
+import router from './routes/router';
+import sequelize from './db/postgres';
+import errorHandling from './middlewares/errorMiddleware'
+import {json, urlencoded} from 'body-parser';
+const cors = require('cors')
+import {resolve} from 'path';
+import fileUpload from 'express-fileupload';
+config()
 
 const app: Application = express();
 const port = process.env.PORT || 5000;
 
-app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  })
-);
-app.use(express.static(resolve(__dirname, "static")));
-app.use(fileUpload({}));
+app.use(cors())
+app.use(express.static(resolve(__dirname, 'static')))
+app.use(fileUpload({}))
 app.use(json());
 app.use(
   urlencoded({
