@@ -10,7 +10,7 @@ const router = useRouter()
 const auth = useUser()
 if (localStorage.getItem('token')) {
   auth.isAuth = true
-  auth.user = JSON.parse(localStorage.getItem('user'))
+  auth.user = JSON.parse(localStorage.getItem('user') as string)
 }
 console.log(auth.isAuth)
 console.log(auth.user.firstName)
