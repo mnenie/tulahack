@@ -94,7 +94,7 @@ header {
 .else {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 
   & img {
     width: 20px;

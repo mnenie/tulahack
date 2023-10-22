@@ -18,7 +18,7 @@ defineProps<{
 
 <style lang="scss" scoped>
 .modal-body {
-  padding: 30px;
+  padding: 20px;
 }
 
 .modal-content {

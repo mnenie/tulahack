@@ -141,7 +141,7 @@ const isUser = computed(() => !!auth.isAuth)
               </div>
             </div>
             <div class="input_el_full">
-              <p class="subheading">Дата окончания(если есть):</p>
+              <p class="subheading">Дата окончания:</p>
               <input v-model="model6" class="input_el" placeholder="Введите дату">
               <div class="error_message">
               </div>
