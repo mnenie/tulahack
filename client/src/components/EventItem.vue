@@ -79,7 +79,7 @@ onMounted(() => {
     </div>
     <div class="second">
       <span class="size_5 desc">{{ info?.event.description }}</span>
-      <span style="margin-bottom: 20px;" class="size_5">Автор:  {{ info?.organizer }} </span>
+      <span style="margin-bottom: 20px;" class="size_5">Автор: {{ info?.organizer.firstName }} </span>
       <btn-event @click="showAlert" style="align-self: flex-start;">Я пойду</btn-event>
     </div>
     <div class="round"></div>
