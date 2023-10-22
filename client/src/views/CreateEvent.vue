@@ -31,7 +31,9 @@ const create = async () => {
   formData.append('name', model1.value);
   formData.append('description', model2.value);
   formData.append('startDate', format(new Date(model3.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
-  formData.append('endDate', format(new Date(model6.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
+  if (model6.value !== ''){
+    formData.append('endDate', format(new Date(model6.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
+  }
   formData.append('location', model4.value);
   formData.append('tags', selectedTags.value.map((obj: any) => obj.name).join(','));
   formData.append('price', model5.value);
