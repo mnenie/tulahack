@@ -46,7 +46,22 @@ export const useEvents = defineStore('events', () => {
     },
     {
       id: 7,
-      name: 'Концерты',
+      name: 'Концерт',
+      isActive: false
+    },
+    {
+      id: 8,
+      name: 'Музыка',
+      isActive: false
+    },
+    {
+      id: 9,
+      name: 'Спортивное соревнование',
+      isActive: false
+    },
+    {
+      id: 10,
+      name: 'Культура',
       isActive: false
     }
   ])

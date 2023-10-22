@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MultiSelect from 'primevue/multiselect';
-import { ref } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import InputItem from '@/components/ui/InputItem.vue';
 import Swal from 'sweetalert2';
 import { useRouter } from 'vue-router';
@@ -8,6 +8,7 @@ import { HOME_ROUTE } from '@/utils/const';
 import { arr } from '../utils/const';
 import $api from '@/http';
 import { format } from 'date-fns';
+import { useUser } from '../stores/userState';
 
 const imgPeople = ref('/img/registration.png')
 const mainPicFile = ref();
@@ -19,30 +20,30 @@ const uploadImage = () => {
   input.addEventListener("change", (event: Event) => {
     const target = event.target as HTMLInputElement;
     mainPicFile.value = target.files?.[0];
-    
+
   })
   input.click();
 }
 const router = useRouter()
 const create = async () => {
   const formData = new FormData();
-    formData.append('mainPic', mainPicFile.value);
-    formData.append('name', model1.value);
-    formData.append('description', model2.value);
-    formData.append('startDate', format(new Date(model3.value) , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
-    formData.append('endDate', format(new Date(model6.value) , "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
-    formData.append('location', model4.value);
-    formData.append('tags', selectedTags.value.map((obj : any) => obj.name).join(','));
-    formData.append('price', model5.value);
-    formData.append('isRegular', check1.value.toString());
-    formData.append('organizerId', JSON.parse(localStorage.getItem('user') as string).id);
-    try{
-      const response = await $api.post('/events/create',formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-    }); 
-  }catch(e){
+  formData.append('mainPic', mainPicFile.value);
+  formData.append('name', model1.value);
+  formData.append('description', model2.value);
+  formData.append('startDate', format(new Date(model3.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
+  formData.append('endDate', format(new Date(model6.value), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"));
+  formData.append('location', model4.value);
+  formData.append('tags', selectedTags.value.map((obj: any) => obj.name).join(','));
+  formData.append('price', model5.value);
+  formData.append('isRegular', check1.value.toString());
+  formData.append('organizerId', JSON.parse(localStorage.getItem('user') as string).id);
+  try {
+    const response = await $api.post('/events/create', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+  } catch (e) {
     console.log(e)
   }
   Swal.fire({
@@ -101,13 +102,17 @@ const inputs = ref([
     place: 'Введите цену'
   },
 ])
-
+const auth = useUser()
+const isUser = computed(() => !!auth.isAuth)
 </script>
 
 <template>
   <div class="create">
     <div class="container">
-      <div class="create_block">
+      <div v-if="!isUser">
+        <p style="color: red;">Войдите на сайт чтобы создать собственное мероприятие!</p>
+      </div>
+      <div v-else class="create_block">
         <h2 class="size_2">Создайте свое собственное мероприятие!</h2>
         <div class="form">
           <div class="avatar">
@@ -294,9 +299,11 @@ const inputs = ref([
   line-height: 130%;
   color: red;
 }
-.card_select{
+
+.card_select {
   border-radius: 10px;
 }
+
 .select {
   background: var(--white-color);
   border: 1px solid var(--main-color);

@@ -54,7 +54,7 @@ const Auth = async () => {
       </div>
       <div class="input_el_full">
         <p class="subheading">Пароль: </p>
-        <input v-model="input2" class="input_el" placeholder="Введит пароль">
+        <input type="password" v-model="input2" class="input_el" placeholder="Введит пароль">
         <div class="error_message">
         </div>
       </div>
