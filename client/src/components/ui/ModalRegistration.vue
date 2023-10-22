@@ -106,7 +106,7 @@ const Registration = async () => {
       </div>
       <div class="input_el_full">
         <p class="subheading">Пароль: </p>
-        <input v-model="model4" class="input_el" placeholder="Введите пароль">
+        <input type="password" v-model="model4" class="input_el" placeholder="Введите пароль">
         <div class="error_message">
         </div>
       </div>

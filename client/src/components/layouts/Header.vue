@@ -15,10 +15,13 @@ if (localStorage.getItem('token')) {
 console.log(auth.isAuth)
 console.log(auth.user.firstName)
 
-// onMounted(() => {
-//   auth.registration
-//   auth.login
-// })
+const endSession = () => {
+  if (localStorage.getItem('token')) {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    auth.isAuth = false
+  }
+}
 </script>
 
 <template>
@@ -42,13 +45,16 @@ console.log(auth.user.firstName)
             <img src="/icons/Login.svg" alt="">
           </btn-auth>
         </div>
-        <router-link style="text-decoration: none; color: var(--black-color)" v-else to="/user">
-          <div class="else">
-            <img src="/icons/user.png" alt="">
-            <span>{{ auth.user.firstName }}</span>
-            <span>{{ auth.user.lastName }}</span>
-          </div>
-        </router-link>
+        <div v-else class="end">
+          <router-link style="text-decoration: none; color: var(--black-color)" to="/user">
+            <div class="else">
+              <img src="/icons/user.png" alt="">
+              <span>{{ auth.user.firstName }}</span>
+              <span>{{ auth.user.lastName }}</span>
+            </div>
+          </router-link>
+          <btn-auth @click="endSession">Выйти</btn-auth>
+        </div>
       </div>
     </div>
     <ModalRegistration />
@@ -94,5 +100,11 @@ header {
     width: 20px;
     height: 20px;
   }
+}
+
+.end{
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 </style>
