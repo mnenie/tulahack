@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useUser } from '@/stores/userState';
-
+import EventBlocks from '@/components/EventBlocks.vue';
 const auth = useUser()
 if (localStorage.getItem('token')) {
   auth.isAuth = true
   auth.user = JSON.parse(localStorage.getItem('user'))
 }
+
 </script>
 
 <template>
@@ -16,6 +17,7 @@ if (localStorage.getItem('token')) {
         <span style="margin-bottom: 20px;" class="size_5">Пользователь {{ auth.user.firstName }} {{ auth.user.lastName
         }}</span>
         <span>Его мероприятия: </span>
+        <EventBlock />
       </div>
     </div>
   </div>
