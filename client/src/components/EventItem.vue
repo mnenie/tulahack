@@ -43,7 +43,6 @@ const showAlert = async () => {
     }
   });
 }
-
 const route = useRoute()
 
 const newInfo = useEvents()
@@ -51,6 +50,8 @@ const newFuncInfo = async () => {
   info.value = await newInfo.fetchOneEvent(parseInt(route.params.id as string))
   console.log(info.value)
 }
+
+
 onMounted(() => {
   newFuncInfo()
 })
@@ -79,7 +80,11 @@ onMounted(() => {
     </div>
     <div class="second">
       <span class="size_5 desc">{{ info?.event.description }}</span>
+<<<<<<< HEAD
       <span style="margin-bottom: 20px;" class="size_5">Автор:  {{ info?.organaizer }} </span>
+=======
+      <span style="margin-bottom: 20px;" class="size_5">Автор: {{ info?.organizer.firstName }} </span>
+>>>>>>> c5c2e86047176b2c8633278113ea6ac2c2603427
       <btn-event @click="showAlert" style="align-self: flex-start;">Я пойду</btn-event>
     </div>
     <div class="round"></div>

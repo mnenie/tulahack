@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { useUser } from '@/stores/userState';
+<<<<<<< HEAD
 import $api from '@/http/index';
 import {onMounted, ref} from 'vue'
 import EventBlock from '@/components/EventBlock.vue';
+=======
+import EventBlocks from '@/components/EventBlocks.vue';
+>>>>>>> c5c2e86047176b2c8633278113ea6ac2c2603427
 const auth = useUser()
 if (localStorage.getItem('token')) {
   auth.isAuth = true
   auth.user = JSON.parse(localStorage.getItem('user') as string)
 }
 
+<<<<<<< HEAD
 const myEvents = ref<IEvent[]>([]);
 async function getMyEvents(){
   try{
@@ -22,6 +27,8 @@ onMounted(() => {
   getMyEvents();
 })
 console.log(myEvents.value)
+=======
+>>>>>>> c5c2e86047176b2c8633278113ea6ac2c2603427
 </script>
 
 <template>
@@ -31,6 +38,7 @@ console.log(myEvents.value)
         <h2 style="margin-bottom: 30px;" class="size_2">Страница пользователя:</h2>
         <span style="margin-bottom: 20px;" class="size_5">Пользователь {{ auth.user.firstName }} {{ auth.user.lastName
         }}</span>
+<<<<<<< HEAD
         <span>Мероприятия: </span>
           <div class="event_display">
             <div class="container">
@@ -40,6 +48,10 @@ console.log(myEvents.value)
               </div>
             </div>
           </div>
+=======
+        <span>Его мероприятия: </span>
+        <EventBlock />
+>>>>>>> c5c2e86047176b2c8633278113ea6ac2c2603427
       </div>
     </div>
   </div>
