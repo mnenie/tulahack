@@ -56,7 +56,7 @@ export default class EventController{
             //     const tagArray = tagss.split(',').map(tag => tag.trim()); 
             //     filter.tags = { $in: tagArray }; 
             // }
-            const events = await Event.findAll({ where: filter });
+            const events = await Event.findAll({order: [['id', 'ASC']], where: filter });
             return res.json(events);
           } catch (error : any) {
             next(ApiError.internal(`${error.message}`));
@@ -79,7 +79,7 @@ export default class EventController{
             const {id} = req.params;
             const resp = await Event.update(
                 {
-                  tags: seq.literal(`array_append(tags, '${participantId}')`),
+                    participants: seq.literal(`array_append(participants, '${participantId}')`),
                 },
                 {
                   where: {

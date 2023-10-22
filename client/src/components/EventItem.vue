@@ -8,6 +8,8 @@ import { useEvents } from '../stores/events';
 import type { IInfo } from '../types/info.interface';
 
 import { format } from 'date-fns';
+import $api from '@/http';
+const info = ref<IInfo | null>(null)
 
 function formatDate(dateString: string | Date) {
   return format(new Date(dateString), 'dd.MM.yyyy');
@@ -16,7 +18,15 @@ defineProps<{
   events: IEvent[]
 }>()
 const router = useRouter()
-const showAlert = () => {
+const showAlert = async () => {
+  try{
+    const response = await $api.post(`/events/register/${info.value?.event.id}`,{participantId: JSON.parse(localStorage.getItem('user') as string).id});
+
+  }catch(e) {
+    console.log(e)
+    return 
+  }
+  
   Swal.fire({
     title: 'Ваша заявка принята',
     icon: 'success',
@@ -37,9 +47,9 @@ const showAlert = () => {
 const route = useRoute()
 
 const newInfo = useEvents()
-const info = ref<IInfo | null>(null)
 const newFuncInfo = async () => {
   info.value = await newInfo.fetchOneEvent(parseInt(route.params.id as string))
+  console.log(info.value)
 }
 onMounted(() => {
   newFuncInfo()
@@ -69,7 +79,7 @@ onMounted(() => {
     </div>
     <div class="second">
       <span class="size_5 desc">{{ info?.event.description }}</span>
-      <span style="margin-bottom: 20px;" class="size_5">Автор: </span>
+      <span style="margin-bottom: 20px;" class="size_5">Автор:  {{ info?.organaizer }} </span>
       <btn-event @click="showAlert" style="align-self: flex-start;">Я пойду</btn-event>
     </div>
     <div class="round"></div>

@@ -9,48 +9,19 @@ if (localStorage.getItem('token')) {
   auth.user = JSON.parse(localStorage.getItem('user') as string)
 }
 
-const myEvents = [
-    {
-      id: 1,
-      name: 'Смешарики. Искусство быть круглым',
-      description: 'Масштабная выставка к юбилею проекта',
-      startDate: new Date('22.10.23'),
-      endDate: new Date('22.10.23'),
-      location: 'Хлебозавод',
-      tags: [
-        "Выставка", "Детям", "0+"
-      ],
-      mainPic: '',
-      price: 13122,
-      isRegular: false
-    },
-    {
-      id: 2,
-      name: 'Ничего не бойся, я с тобой',
-      description: 'Романтическая история с хитами группы «Секрет»',
-      startDate: new Date('22.10.23'),
-      location: 'Хлебозавод',
-      tags: [
-        "Выставка", "Детям", "12+"
-      ],
-      mainPic: '',
-      price: 13,
-      isRegular: false
-    }
-  ];
+const myEvents = ref<IEvent[]>([]);
+async function getMyEvents(){
+  try{
+    const response = await $api.get(`/events/?organizerId=${auth.user.id}`);
+    myEvents.value = response.data;
+  }catch(e){
 
-// async function getMyEvents(){
-//   try{
-//     const response = await $api.get(`/events/?organizerId=${auth.user.id}`);
-//     myEvents.value = response.data;
-//   }catch(e){
-
-//   }
-// }
-// onMounted(() => {
-//   getMyEvents();
-// })
-// console.log(myEvents.value)
+  }
+}
+onMounted(() => {
+  getMyEvents();
+})
+console.log(myEvents.value)
 </script>
 
 <template>
@@ -61,7 +32,14 @@ const myEvents = [
         <span style="margin-bottom: 20px;" class="size_5">Пользователь {{ auth.user.firstName }} {{ auth.user.lastName
         }}</span>
         <span>Мероприятия: </span>
-        <!-- <EventBlock :events="myEvents"></EventBlock> -->
+          <div class="event_display">
+            <div class="container">
+              <div class="blocks">
+                <EventBlock v-if="myEvents.length !== 0" :events="myEvents" />
+                <p v-else style="color: red; margin-top: 20px;">Нет созданных мероприятий</p>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
   </div>
@@ -71,5 +49,13 @@ const myEvents = [
 .text{
   display: flex;
   flex-direction: column;
+}
+.event_display{
+  margin: 40px 0;
+  .blocks{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
 }
 </style>
