@@ -20,7 +20,7 @@ const showAlert = () => {
   Swal.fire({
     title: 'Ваша заявка принята',
     icon: 'success',
-    text: 'Ожидайте письма на почте',
+    // text: 'Ожидайте письма на почте',
     showCancelButton: false,
     confirmButtonText: 'Перейти на главную',
     customClass: {

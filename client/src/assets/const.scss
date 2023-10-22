@@ -62,3 +62,21 @@ button{cursor: pointer;}
   font-size: 14px;
   line-height: normal;
 }
+
+.p-multiselect-items-wrapper{
+  background: var(--white-color);
+  padding-top: 10px;
+  height: 100px;
+  border: 1px solid var(--main-color);
+  padding-left: 10px;
+  border-radius: 5px;
+}
+.p-multiselect-header{
+  display: none;
+}
+.p-multiselect-item{
+  gap: 10px;
+}
+.v-calendar .input-field svg.datepicker{
+  fill: var(--main-color) !important;
+}

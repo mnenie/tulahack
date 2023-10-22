@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useEvents } from '../stores/events';
 
-const selectedDate = ref([
-  new Date(),
-  new Date(new Date().getTime() + 9 * 24 * 60 * 60 * 1000)])
-
+const {selectedDate} = useEvents()
 </script>
 
 <template>
