@@ -33,6 +33,7 @@ const { filters, filterThis } = useEvents();
     display: flex;
     align-items: center;
     gap: 30px;
+    flex-wrap: wrap;
 
     & span {
       font-weight: 400;
