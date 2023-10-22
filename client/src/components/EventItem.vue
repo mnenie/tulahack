@@ -43,15 +43,14 @@ const showAlert = async () => {
     }
   });
 }
+
 const route = useRoute()
 
 const newInfo = useEvents()
 const newFuncInfo = async () => {
   info.value = await newInfo.fetchOneEvent(parseInt(route.params.id as string))
-  console.log(info.value)
+  console.log(info.value) 
 }
-
-
 onMounted(() => {
   newFuncInfo()
 })

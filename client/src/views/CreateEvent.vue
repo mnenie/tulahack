@@ -45,6 +45,7 @@ const create = async () => {
     });
   } catch (e) {
     console.log(e)
+    return
   }
   Swal.fire({
     title: 'Ваше мероприятие создано',
