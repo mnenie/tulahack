@@ -33,7 +33,7 @@ export default class EventController{
 
     static async get(req : Request, res : Response, next : NextFunction){
         try {
-            const {name, startDate , endDate, location, tags} = req.query;
+            const {name, startDate , endDate, location, organizerId} = req.query;
             const filter : any = {};
       
             if (startDate) {
@@ -47,6 +47,9 @@ export default class EventController{
             }
             if (location) {
                 filter.location = location;
+            }
+            if (organizerId) {
+                filter.organizerId = organizerId;
             }
             // if (tags) {
             //     const tagss = tags as string;

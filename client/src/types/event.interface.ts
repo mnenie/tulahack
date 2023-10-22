@@ -3,11 +3,11 @@ interface IEvent{
   name : string;
   description : string;
   startDate : Date;
-  endDate: Date;
+  endDate?: Date;
   location : string;
-  organizerId : number;
+  organizerId? : number;
   tags? : string[];
-  participants : number[];
+  participants? : number[];
   mainPic : string;
   isRegular? : boolean;
   price? : number;
