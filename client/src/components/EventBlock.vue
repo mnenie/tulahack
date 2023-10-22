@@ -13,7 +13,7 @@ function formatDate(dateString: string | Date) {
 
 <template>
   <div v-for="item in events" :key="item.id" class="event_block">
-      <img style="width: 330px; height: 250px; border-radius: 15px;" :src="`http://localhost:8080/${item.mainPic}`" alt="">
+      <img style="max-width: 310px; width: 100%; height: 260px; border-radius: 15px;" :src="`http://localhost:8080/${item.mainPic}`" alt="">
     <div class="text">
       <h2 class="size_3">{{ item.name }}</h2>
       <div class="tags">
